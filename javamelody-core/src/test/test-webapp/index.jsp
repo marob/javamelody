@@ -11,6 +11,8 @@
 <br/>
 <a href="jsp/sql.jsp">statistics sql</a><br/>
 <a href="jsp/directSql.jsp">statistics sql via driver</a><br/>
+<a href="jsp/neo4j.jsp">statistics neo4j</a><br/>
+<a href="jsp/springDataNeo4j.jsp">statistics neo4j (Spring Data Neo4j)</a><br/>
 <a href="jsp/spring.jsp">statistics spring</a><br/>
 <a href="jsp/guice.jsp">statistics guice</a><br/>
 <a href="jsp/service.jsp">statistics services</a><br/>

@@ -95,6 +95,11 @@ public enum Parameter {
 	SQL_TRANSFORM_PATTERN("sql-transform-pattern"),
 
 	/**
+	 * Expression régulière (null par défaut) pour transformer la description de la requête cypher.
+	 */
+	NEO4J_TRANSFORM_PATTERN("neo4j-transform-pattern"),
+
+	/**
 	 * Expression régulière (null par défaut) pour transformer la description d'une méthode ejb3.
 	 */
 	EJB_TRANSFORM_PATTERN("ejb-transform-pattern"),
