@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="springDataNeo4jAspect" class="net.bull.javamelody.SpringDataNeo4jAspect"/>
+	<aop:aspectj-autoproxy>
+		<aop:include name="springDataNeo4jAspect" />
+	</aop:aspectj-autoproxy>
+
+
+	<!--bean id="springDataNeo4jMonitoringPointcut" class="net.bull.javamelody.MonitoredWithInterfacePointcut">
+		<property name="interfaceName" value="org.springframework.data.neo4j.support.query.QueryEngine" />
+	</bean>
+
+	<bean id="springDataNeo4jMonitoringAdvice" class="net.bull.javamelody.MonitoringSpringInterceptor" />
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="springDataNeo4jMonitoringAdvice" pointcut-ref="springDataNeo4jMonitoringPointcut" />
+	</aop:config-->
+
+
+
+	<!--aop:config proxy-target-class="true">
+		<aop:aspect ref="springDataNeo4jAspect">
+			<aop:pointcut id="springDataNeo4jPointcut"
+						  expression="execution(* org.neo4j.graphdb.GraphDatabaseService.beginTx(..))" />
+			expression="execution(* org.springframework.data.neo4j.support.query.QueryEngine.query(String, java.util.Map))" />
+			<aop:around pointcut-ref="springDataNeo4jPointcut" method="openEntry" />
+		</aop:aspect>
+	</aop:config-->
+</beans>

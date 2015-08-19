@@ -118,6 +118,7 @@ class FilterContext {
 	private static List<Counter> initCounters() {
 		// liaison des compteurs : les contextes par thread du sqlCounter ont pour parent le httpCounter
 		final Counter sqlCounter = JdbcWrapper.SINGLETON.getSqlCounter();
+		final Counter neo4jCounter = GraphWrapper.SINGLETON.getNeo4jCounter();
 		final Counter httpCounter = new Counter(Counter.HTTP_COUNTER_NAME, "dbweb.png", sqlCounter);
 		final Counter errorCounter = new Counter(Counter.ERROR_COUNTER_NAME, "error.png");
 		errorCounter.setMaxRequestsCount(250);
@@ -134,11 +135,11 @@ class FilterContext {
 		final List<Counter> counters;
 		if (JobInformations.QUARTZ_AVAILABLE) {
 			final Counter jobCounter = JobGlobalListener.getJobCounter();
-			counters = Arrays.asList(httpCounter, sqlCounter, jpaCounter, ejbCounter,
+			counters = Arrays.asList(httpCounter, sqlCounter, neo4jCounter, jpaCounter, ejbCounter,
 					springCounter, guiceCounter, servicesCounter, strutsCounter, jsfCounter,
 					jspCounter, errorCounter, logCounter, jobCounter);
 		} else {
-			counters = Arrays.asList(httpCounter, sqlCounter, jpaCounter, ejbCounter,
+			counters = Arrays.asList(httpCounter, sqlCounter, neo4jCounter, jpaCounter, ejbCounter,
 					springCounter, guiceCounter, servicesCounter, strutsCounter, jsfCounter,
 					jspCounter, errorCounter, logCounter);
 		}
@@ -149,6 +150,8 @@ class FilterContext {
 			// par défaut, les compteurs http, sql, error et log (et ceux qui sont utilisés) sont affichés
 			httpCounter.setDisplayed(true);
 			sqlCounter.setDisplayed(!Parameters.isNoDatabase());
+			// FIXME : permettre l'activation manuelle
+			neo4jCounter.setDisplayed(true);
 			errorCounter.setDisplayed(true);
 			logCounter.setDisplayed(true);
 			jpaCounter.setDisplayed(jpaCounter.isUsed());

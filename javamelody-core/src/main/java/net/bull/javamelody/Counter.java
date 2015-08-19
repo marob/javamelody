@@ -73,6 +73,10 @@ class Counter implements Cloneable, Serializable { // NOPMD
 	 */
 	static final String SQL_COUNTER_NAME = "sql";
 	/**
+	 * Nom du counter des requêtes neo4j.
+	 */
+	static final String NEO4J_COUNTER_NAME = "neo4j";
+	/**
 	 * Nom du counter des jobs.
 	 */
 	static final String JOB_COUNTER_NAME = "job";
