@@ -19,7 +19,7 @@ public class Person {
     @Indexed
     private String name;
 
-    @RelatedTo(direction = Direction.BOTH, elementClass = Person.class)
+    @RelatedTo(type = "KNOWS", direction = Direction.BOTH, elementClass = Person.class)
     private Set<Person> friends = new HashSet<Person>();
 
     public Person() {}
