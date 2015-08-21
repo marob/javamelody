@@ -33,7 +33,7 @@ public class SpringDataNeo4jAspect {
         if (result instanceof GraphDatabase) {
             result = generateGraphDatabaseProxy((GraphDatabase) result);
         } else {
-            LOGGER.warn("org.springframework.data.neo4j.config.Neo4jConfiguration.graphDatabase should return a " + GraphDatabase.class.getName());
+            LOGGER.error("org.springframework.data.neo4j.config.Neo4jConfiguration.graphDatabase should return a " + GraphDatabase.class.getName());
         }
         return result;
     }
