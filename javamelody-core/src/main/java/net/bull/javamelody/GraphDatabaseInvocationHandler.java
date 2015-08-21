@@ -33,8 +33,9 @@ public class GraphDatabaseInvocationHandler implements InvocationHandler {
         if ("queryEngine".equals(methodName)) {
             if (result instanceof QueryEngine) {
                 result = generateQueryEngineProxy((QueryEngine) result);
+                LOGGER.info("javamelody is monitoring Spring Data Neo4J Cypher queries");
             } else {
-                LOGGER.warn(graphDatabase.getClass().getName() + ".queryEngine should return a " + QueryEngine.class.getName());
+                LOGGER.error(graphDatabase.getClass().getName() + ".queryEngine should return a " + QueryEngine.class.getName());
             }
         }
 
