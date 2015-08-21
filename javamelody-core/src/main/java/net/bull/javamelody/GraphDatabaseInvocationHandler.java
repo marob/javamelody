@@ -25,7 +25,7 @@ public class GraphDatabaseInvocationHandler implements InvocationHandler {
         Object result;
         try {
             result = method.invoke(graphDatabase, args);
-        } catch (Exception e) {
+        } catch (InvocationTargetException e) {
             // On lance l'exception originale afin que la fonction appelante ne soit pas consciente de l'existance de ce proxy
             // (sinon, une InvocationTargetException est lancée et l'appelant ne peut pas catcher l'exception d'origine)
             throw e.getCause();
