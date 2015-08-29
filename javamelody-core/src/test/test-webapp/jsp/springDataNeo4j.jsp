@@ -5,36 +5,33 @@
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import="org.springframework.context.support.ClassPathXmlApplicationContext" %>
 
-Node ids :
-<ul>
-    <%
-        ApplicationContext context = null;
-        try {
-            context = new ClassPathXmlApplicationContext( new String[] {
-                    "net/bull/javamelody/monitoring-spring-data-neo4j.xml", "spring-context.xml"} );
+<%
+    ApplicationContext context = null;
+    try {
+        context = new ClassPathXmlApplicationContext( new String[] {
+                "net/bull/javamelody/monitoring-spring-data-neo4j.xml", "spring-data-neo4j-context.xml"} );
 
-            PersonRepository personRepository = (PersonRepository) context.getBeansOfType(net.bull.javamelody.neo4j.repository.PersonRepository.class).get("personRepository");
+        PersonRepository personRepository = (PersonRepository) context.getBeansOfType(net.bull.javamelody.neo4j.repository.PersonRepository.class).get("personRepository");
 
-            Person jon = new Person("Jon");
-            personRepository.save(jon);
-            Person emil = new Person("Emil");
-            personRepository.save(emil);
-            Person rod = new Person("Rod");
-            personRepository.save(rod);
+        Person jon = new Person("Jon");
+        personRepository.save(jon);
+        Person emil = new Person("Emil");
+        personRepository.save(emil);
+        Person rod = new Person("Rod");
+        personRepository.save(rod);
 
-            emil.knows(jon);
-            emil.knows(rod);
+        emil.knows(jon);
+        emil.knows(rod);
 
-            // Persist created relationships to graph database
-            personRepository.save(emil);
-        } finally {
-            if(context != null){
-                ((AbstractApplicationContext) context).close();
-            }
+        personRepository.save(emil);
+    } finally {
+        if(context != null){
+            // Fermer le contexte Spring pour déclencher la fermeture de la base Neo4J (sinon, elle reste ouverte et est lockée)
+            ((AbstractApplicationContext) context).close();
         }
-    %>
-</ul>
-neo4j done
+    }
+%>
+Spring Data Neo4J done
 
 <br/>
 <a href="../index.jsp">back</a>
