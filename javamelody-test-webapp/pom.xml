@@ -263,6 +263,7 @@
 								<exclude>WEB-INF/classes/**</exclude>
 								<!-- JRobin is already included with the javamelody dependency -->
 								<exclude>WEB-INF/lib/jrobin*.*</exclude>
+								<exclude>WEB-INF/lib/spring*.*</exclude>
 							</excludes>
 						</resource>
 					</webResources>
