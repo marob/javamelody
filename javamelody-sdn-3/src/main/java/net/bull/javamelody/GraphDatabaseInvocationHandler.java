@@ -12,12 +12,13 @@ import java.lang.reflect.Proxy;
 public class GraphDatabaseInvocationHandler implements InvocationHandler {
     private static final Logger LOGGER = Logger.getLogger("javamelody");
     private final GraphDatabase graphDatabase;
-    private static boolean IS_MONITORING = false;
+    private final Counter neo4jCounter;
 
     public GraphDatabaseInvocationHandler(GraphDatabase graphDatabase) {
         super();
         assert graphDatabase != null;
         this.graphDatabase = graphDatabase;
+        neo4jCounter = MonitoringProxy.getNeo4jCounter();
     }
 
     @Override
@@ -34,9 +35,11 @@ public class GraphDatabaseInvocationHandler implements InvocationHandler {
         if ("queryEngine".equals(methodName)) {
             if (result instanceof QueryEngine) {
                 result = generateQueryEngineProxy((QueryEngine) result);
-                if (!IS_MONITORING) {
+                if (!neo4jCounter.isUsed()) {
                     LOGGER.info("javamelody is monitoring Spring Data Neo4J Cypher queries");
-                    IS_MONITORING = true;
+                    // Le compteur est affiché sauf si le paramètre displayed-counters dit le contraire
+                    neo4jCounter.setDisplayed(!Parameters.isCounterHidden(neo4jCounter.getName()));
+                    neo4jCounter.setUsed(true);
                 }
             } else {
                 LOGGER.error(graphDatabase.getClass().getName() + ".queryEngine should return a " + QueryEngine.class.getName());

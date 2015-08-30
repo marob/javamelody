@@ -118,7 +118,7 @@ class FilterContext {
 	private static List<Counter> initCounters() {
 		// liaison des compteurs : les contextes par thread du sqlCounter ont pour parent le httpCounter
 		final Counter sqlCounter = JdbcWrapper.SINGLETON.getSqlCounter();
-		final Counter neo4jCounter = GraphWrapper.SINGLETON.getNeo4jCounter();
+		final Counter neo4jCounter = MonitoringProxy.getNeo4jCounter();
 		final Counter httpCounter = new Counter(Counter.HTTP_COUNTER_NAME, "dbweb.png", sqlCounter);
 		final Counter errorCounter = new Counter(Counter.ERROR_COUNTER_NAME, "error.png");
 		errorCounter.setMaxRequestsCount(250);
@@ -150,8 +150,7 @@ class FilterContext {
 			// par défaut, les compteurs http, sql, error et log (et ceux qui sont utilisés) sont affichés
 			httpCounter.setDisplayed(true);
 			sqlCounter.setDisplayed(!Parameters.isNoDatabase());
-			// FIXME : permettre l'activation manuelle
-			neo4jCounter.setDisplayed(true);
+			neo4jCounter.setDisplayed(neo4jCounter.isUsed());
 			errorCounter.setDisplayed(true);
 			logCounter.setDisplayed(true);
 			jpaCounter.setDisplayed(jpaCounter.isUsed());

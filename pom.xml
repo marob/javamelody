@@ -16,5 +16,7 @@
 		<module>javamelody-collector-server</module>
 		<module>javamelody-for-standalone</module>
 		<module>javamelody-test-webapp</module>
+		<module>javamelody-sdn-3</module>
+		<module>javamelody-sdn-4</module>
 	</modules>
 </project>

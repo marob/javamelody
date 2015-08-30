@@ -9,7 +9,7 @@
     ApplicationContext context = null;
     try {
         context = new ClassPathXmlApplicationContext( new String[] {
-                "net/bull/javamelody/monitoring-spring-data-neo4j.xml", "spring-data-neo4j-context.xml"} );
+                "net/bull/javamelody/monitoring-spring-data-neo4j.xml", "spring-data-neo4j-3-context.xml"} );
 
         PersonRepository personRepository = (PersonRepository) context.getBeansOfType(net.bull.javamelody.neo4j.repository.PersonRepository.class).get("personRepository");
 

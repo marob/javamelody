@@ -11,6 +11,182 @@
 	<packaging>war</packaging>
 	<name>JavaMelody - TEST WebAPP</name>
 	<description>Webapp to test manually Java Melody</description>
+	<profiles>
+		<profile>
+			<!-- Profil permettant d'utiliser Spring Data Neo4J 3 -->
+			<id>sdn3</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencies>
+				<!-- Dépendance vers l'extension SDN+3 de JavaMelody -->
+				<dependency>
+					<groupId>net.bull.javamelody</groupId>
+					<artifactId>javamelody-sdn-3</artifactId>
+					<version>1.57.0-SNAPSHOT</version>
+				</dependency>
+				<!-- Dépendance vers SDN-3 -->
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-neo4j</artifactId>
+					<version>3.3.2.RELEASE</version>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>jcl-over-slf4j</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.9.1</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals><goal>add-source</goal></goals>
+								<configuration>
+									<sources>
+										<source>../javamelody-sdn-3/src/test/java</source>
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- Profil permettant d'utiliser Spring Data Neo4J 4 -->
+			<id>sdn4</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencies>
+				<!-- Dépendance vers l'extension SDN-4 de JavaMelody -->
+				<dependency>
+					<groupId>net.bull.javamelody</groupId>
+					<artifactId>javamelody-sdn-4</artifactId>
+					<version>1.57.0-SNAPSHOT</version>
+				</dependency>
+				<!-- Dépendance vers SDN-4 -->
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-neo4j</artifactId>
+					<version>4.0.0.RC2</version>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>jcl-over-slf4j</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+						</exclusion>
+						<!--exclusion>
+							<groupId>org.neo4j.app</groupId>
+							<artifactId>neo4j-server</artifactId>
+						</exclusion-->
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-neo4j</artifactId>
+					<version>4.0.0.RC2</version>
+					<classifier>tests</classifier>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>jcl-over-slf4j</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<!-- Pour lancer un Neo4J embarqué (jetty). Normalement, c'est prévu pour des tests... donc je ne suis pas certain que ça puisse être lancé par un serveur d'application -->
+				<!--dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-neo4j</artifactId>
+					<version>4.0.0.RC2</version>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.neo4j</groupId>
+					<artifactId>neo4j-kernel</artifactId>
+					<version>2.2.4</version>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.neo4j.app</groupId>
+					<artifactId>neo4j-server</artifactId>
+					<version>2.2.4</version>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.neo4j</groupId>
+					<artifactId>neo4j-ogm</artifactId>
+					<version>1.1.1</version>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.neo4j.test</groupId>
+					<artifactId>neo4j-harness</artifactId>
+					<version>2.2.4</version>
+				</dependency-->
+				<!-- Spring aspect nécessaire pour SDN-4 -->
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aspects</artifactId>
+					<version>4.1.7.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+					<version>4.1.7.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+					<version>4.1.7.RELEASE</version>
+				</dependency>
+			</dependencies>
+			<repositories>
+				<repository>
+					<id>spring.milestone</id>
+					<url>http://repo.spring.io/milestone</url>
+				</repository>
+			</repositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.9.1</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals><goal>add-source</goal></goals>
+								<configuration>
+									<sources>
+										<source>../javamelody-sdn-4/src/test/java</source>
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -30,37 +206,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.0.5</version>
-		</dependency>
-		<!-- Dépendance Neo4j -->
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-kernel</artifactId>
-			<version>2.1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-lucene-index</artifactId>
-			<version>2.1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-cypher</artifactId>
-			<version>2.1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>3.3.2.RELEASE</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<!-- Presque les mêmes dépendances que javamelody-core -->
 		<dependency>
@@ -142,6 +287,12 @@
 			<artifactId>quartz</artifactId>
 			<version>1.5.2</version>
 			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--
 		<dependency>

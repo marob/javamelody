@@ -14,7 +14,7 @@ public class QueryEngineInvocationHandler implements InvocationHandler {
         super();
         assert queryEngine != null;
         this.queryEngine = queryEngine;
-        neo4jCounter = GraphWrapper.SINGLETON.getNeo4jCounter();
+        neo4jCounter = MonitoringProxy.getNeo4jCounter();
     }
 
     /**

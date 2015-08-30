@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.bull.javamelody</groupId>
+    <artifactId>javamelody-sdn-4</artifactId>
+    <version>1.57.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>JavaMelody - Extension for SDN 4</name>
+    <description>Extension for Spring Data Neo4J in version 4.*</description>
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-core</artifactId>
+            <version>1.57.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+            <version>4.0.0.RC2</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+            <version>4.0.0.RC2</version>
+            <classifier>tests</classifier>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>4.1.7.RELEASE</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- Configuration compilation -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <fork>true</fork>
+                    <!-- pour éviter warning dans Maven sur sun.nio.ch.DirectBuffer dans RrdNioBackend -->
+                    <compilerArgument>-XDignore.symbol.file=true -Xlint</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <!-- pour éviter warning dans Maven sur sun.misc.BASE64Encoder dans le test unitaire TestBase64Coder -->
+                    <testCompilerArgument>-XDignore.symbol.file=true -Xlint</testCompilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>spring.milestone</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+</project>
