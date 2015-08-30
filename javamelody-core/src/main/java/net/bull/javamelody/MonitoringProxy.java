@@ -50,6 +50,7 @@ public final class MonitoringProxy implements InvocationHandler, Serializable {
 	// ClassNotFoundException si les classes Spring et AOP alliance ne sont pas présentes
 	private static final Counter SPRING_COUNTER = new Counter("spring", BEANS_ICON_NAME,
 			JdbcWrapper.SINGLETON.getSqlCounter());
+	private static final Counter NEO4J_COUNTER = new Counter(Counter.NEO4J_COUNTER_NAME, "neo4j.png");
 	// GUICE_COUNTER déclaré ici pour que l'appel dans MonitoringFilter ne déclenche pas
 	// ClassNotFoundException si les classes AOP alliance ne sont pas présentes
 	private static final Counter GUICE_COUNTER = new Counter("guice", BEANS_ICON_NAME,
@@ -129,6 +130,10 @@ public final class MonitoringProxy implements InvocationHandler, Serializable {
 
 	static Counter getSpringCounter() {
 		return SPRING_COUNTER;
+	}
+
+	static Counter getNeo4jCounter() {
+		return NEO4J_COUNTER;
 	}
 
 	static Counter getGuiceCounter() {

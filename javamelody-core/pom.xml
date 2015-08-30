@@ -220,25 +220,6 @@
 			<version>3.6.9.Final</version>
 			<optional>true</optional>
 		</dependency>
-		<!-- Dépendance optionnelle neo4j -->
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-kernel</artifactId>
-			<version>2.1.8</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>3.3.2.RELEASE</version>
-			<optional>true</optional>
-		</dependency>
-		<!--dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>4.0.0.RC2</version>
-			<optional>true</optional>
-		</dependency-->
 		<!-- Dépendance JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -272,13 +253,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>spring.milestone</id>
-			<url>http://repo.spring.io/milestone</url>
-		</repository>
-	</repositories>
 
 	<distributionManagement>
 		<!-- "mvn release:prepare release:perform" veut -SNAPSHOT et cherche svn, 
