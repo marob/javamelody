@@ -74,7 +74,7 @@ import org.apache.log4j.Logger;
  * Contrôleur au sens MVC de l'ihm de monitoring dans le serveur collecte.
  * @author Emeric Vernat
  */
-class CollectorController {
+class CollectorController { // NOPMD
 	private static final Logger LOGGER = Logger.getLogger("javamelody");
 
 	private static final String COOKIE_NAME = "javamelody.application";
@@ -225,7 +225,10 @@ class CollectorController {
 				resp.getOutputStream().write('|');
 				resp.getOutputStream().write('|');
 			}
-			final URL proxyUrl = new URL(url.toString() + '&' + JMX_VALUE + '=' + jmxValueParameter);
+			final URL proxyUrl = new URL(url.toString()
+					.replace(TransportFormat.SERIALIZED.getCode(), "")
+					.replace(TransportFormat.XML.getCode(), "")
+					+ '&' + JMX_VALUE + '=' + jmxValueParameter);
 			new LabradorRetriever(proxyUrl).copyTo(req, resp);
 		}
 		resp.getOutputStream().close();
@@ -338,8 +341,10 @@ class CollectorController {
 		return serializableController.createDefaultSerializable(javaInformationsList, range, null);
 	}
 
-	private Serializable createSerializableForSystemActions(HttpServletRequest httpRequest,
+	// CHECKSTYLE:OFF
+	private Serializable createSerializableForSystemActions(HttpServletRequest httpRequest, // NOPMD
 			String application) throws IOException {
+		// CHECKSTYLE:ON
 		final String part = httpRequest.getParameter(PART_PARAMETER);
 		if (JVM_PART.equalsIgnoreCase(part)) {
 			final List<JavaInformations> javaInformationsList = getJavaInformationsByApplication(application);
@@ -352,8 +357,12 @@ class CollectorController {
 			// par sécurité
 			Action.checkSystemActionsEnabled();
 			final String sessionId = httpRequest.getParameter(SESSION_ID_PARAMETER);
-			return new ArrayList<SessionInformations>(collectorServer.collectSessionInformations(
-					application, sessionId));
+			final List<SessionInformations> sessionInformations = collectorServer
+					.collectSessionInformations(application, sessionId);
+			if (sessionId != null && !sessionInformations.isEmpty()) {
+				return sessionInformations.get(0);
+			}
+			return new ArrayList<SessionInformations>(sessionInformations);
 		} else if (HOTSPOTS_PART.equalsIgnoreCase(part)) {
 			// par sécurité
 			Action.checkSystemActionsEnabled();

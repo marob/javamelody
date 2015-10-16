@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
 /**
- * Test unitaire des classes Log4JAppender et LoggingHandler.
+ * Test unitaire des classes Log4JAppender, LogbackAppender et LoggingHandler.
  * @author Emeric Vernat
  */
 public class TestLog {
@@ -149,14 +149,5 @@ public class TestLog {
 			log4jAppender.deregister();
 			loggingHandler.deregister();
 		}
-	}
-
-	/** Test. */
-	@Test
-	public void testDebugInfoAndWarn() {
-		LOG.debug("test debug");
-		LOG.debug("test debug", new IllegalStateException("test debug"));
-		LOG.info("test info", new IllegalStateException("test info"));
-		LOG.warn("test warn", new IllegalStateException("test warn"));
 	}
 }
